@@ -47,13 +47,28 @@ $$
 \text{LCR-style Ratio}
 =
 \frac{\text{HQLA}}{\text{Net Outflows}}
-\times 100\%
+\times 100
 $$
 
 Here, HQLA stands for *High-Quality Liquid Assets*. All monetary amounts are expressed in millions.
+
+For example, HQLA of 135 million and net outflows of 45 million produce a simplified ratio of 300%.
+
+## How to Run
+
+Requires Python 3.
+
+Run the script from a terminal:
+
+```bash
+python liquidity_model.py
+```
+
+Replace `liquidity_model.py` with the actual name of your Python file if it differs.
 
 ## Limitations
 
 This is an educational, illustrative model, not a complete regulatory LCR implementation. It assumes the supplied HQLA amount is eligible and does not implement all regulatory rules, including asset haircuts, HQLA composition and caps, detailed regulatory inflow/outflow rates, and the full 30-day calculation perimeter.
 
 The stress factors are illustrative assumptions, not calibrated estimates.
+
