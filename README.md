@@ -18,25 +18,39 @@ The model aggregates inflows and outflows by transaction, applies desk-specific 
 
 For each transaction, the amount is multiplied by its desk's scenario stress factor.
 
-Recognized inflows are calculated as:
+### 1. Recognized inflows
 
-\[
-\text{Recognized inflows} = \min(\text{Total inflows}, 0.75 \times \text{Total outflows})
-\]
+Recognized inflows are capped at 75% of total outflows:
 
-Net outflows are:
+$$
+\text{Recognized Inflows}
+=
+\min\left(
+\text{Total Inflows},
+0.75 \times \text{Total Outflows}
+\right)
+$$
 
-\[
-\text{Net outflows} = \text{Total outflows} - \text{Recognized inflows}
-\]
+### 2. Net outflows
 
-The simplified ratio is:
+$$
+\text{Net Outflows}
+=
+\text{Total Outflows}
+-
+\text{Recognized Inflows}
+$$
 
-\[
-\text{LCR-style ratio} = \frac{\text{HQLA}}{\text{Net outflows}} \times 100
-\]
+### 3. Simplified LCR-style ratio
 
-All monetary amounts are expressed in millions.
+$$
+\text{LCR-style Ratio}
+=
+\frac{\text{HQLA}}{\text{Net Outflows}}
+\times 100\%
+$$
+
+Here, HQLA stands for *High-Quality Liquid Assets*. All monetary amounts are expressed in millions.
 
 ## Limitations
 
