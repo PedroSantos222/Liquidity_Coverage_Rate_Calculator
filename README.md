@@ -2,57 +2,48 @@
 
 ## Overview
 
-A small Python project that estimates stressed liquidity outflows and a simplified Liquidity Coverage Ratio (LCR)-style measure under different funding scenarios.
+This project implements a simplified liquidity stress testing model in Python. It estimates stressed cash inflows and outflows under different funding scenarios and calculates an illustrative Liquidity Coverage Ratio (LCR)-style measure.
 
-The model aggregates inflows and outflows by transaction, applies desk-specific stress factors, limits recognized inflows to 75% of total outflows, and calculates the resulting liquidity ratio.
+The goal is to demonstrate practical Python skills relevant to liquidity risk and financial risk analysis, including scenario analysis, data validation, aggregation, and automated testing.
 
 ## Features
 
-- Multiple funding stress scenarios: base, funding stress, and severe.
-- Input validation for transaction data, stress factors, and HQLA.
-- Duplicate transaction ID detection.
+- Three funding scenarios: base, funding stress, and severe.
+- Desk-specific stress factors applied to individual transactions.
+- Input validation for transaction data, stress factors, and High-Quality Liquid Assets (HQLA).
+- Detection of missing fields and duplicate transaction IDs.
 - Aggregation of stressed outflows by desk.
-- A basic automated test for the base scenario.
+- An automated test of the base scenario.
 
 ## Methodology
 
-For each transaction, the amount is multiplied by its desk's scenario stress factor.
+### 1. Apply stress factors
 
-### 1. Recognized inflows
+Each transaction amount is multiplied by the stress factor associated with its desk.
 
-Recognized inflows are capped at 75% of total outflows:
+**Stressed amount = Original amount × Desk stress factor**
 
-$$
-\text{Recognized Inflows}
-=
-\min\left(
-\text{Total Inflows},
-0.75 \times \text{Total Outflows}
-\right)
-$$
+### 2. Calculate recognized inflows
 
-### 2. Net outflows
+To reflect the simplified 75% inflow cap, recognized inflows are the smaller of total inflows and 75% of total outflows.
 
-$$
-\text{Net Outflows}
-=
-\text{Total Outflows}
--
-\text{Recognized Inflows}
-$$
+**Recognized inflows = min(Total inflows, 0.75 × Total outflows)**
 
-### 3. Simplified LCR-style ratio
+### 3. Calculate net outflows
 
-$$
-\text{LCR-style Ratio}
-=
-\frac{\text{HQLA}}{\text{Net Outflows}}
-\times 100
-$$
+Recognized inflows are deducted from total outflows.
 
-Here, HQLA stands for *High-Quality Liquid Assets*. All monetary amounts are expressed in millions.
+**Net outflows = Total outflows − Recognized inflows**
 
-For example, HQLA of 135 million and net outflows of 45 million produce a simplified ratio of 300%.
+### 4. Calculate the LCR-style ratio
+
+The model divides HQLA by net outflows and expresses the result as a percentage.
+
+**LCR-style ratio (%) = (HQLA / Net outflows) × 100**
+
+For example, if HQLA is 135 million and net outflows are 45 million, the resulting ratio is 300%.
+
+All monetary amounts are expressed in millions.
 
 ## How to Run
 
@@ -66,9 +57,19 @@ python liquidity_model.py
 
 Replace `liquidity_model.py` with the actual name of your Python file if it differs.
 
+The script runs the base-scenario test and prints the results for each funding scenario.
+
 ## Limitations
 
-This is an educational, illustrative model, not a complete regulatory LCR implementation. It assumes the supplied HQLA amount is eligible and does not implement all regulatory rules, including asset haircuts, HQLA composition and caps, detailed regulatory inflow/outflow rates, and the full 30-day calculation perimeter.
+This is an educational model inspired by the LCR framework, not a complete regulatory LCR implementation.
 
-The stress factors are illustrative assumptions, not calibrated estimates.
+In particular, the model:
+
+- Assumes the supplied HQLA amount is eligible and does not apply regulatory asset haircuts.
+- Does not implement HQLA composition requirements or regulatory caps.
+- Uses illustrative desk-specific stress factors rather than calibrated estimates.
+- Does not apply detailed regulatory inflow and outflow rates.
+- Does not model the complete regulatory 30-day liquidity calculation perimeter.
+
+The results should therefore be interpreted as illustrative scenario analysis, not as a regulatory LCR calculation.
 
