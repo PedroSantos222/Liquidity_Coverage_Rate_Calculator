@@ -45,20 +45,6 @@ For example, if HQLA is 135 million and net outflows are 45 million, the resulti
 
 All monetary amounts are expressed in millions.
 
-## How to Run
-
-Requires Python 3.
-
-Run the script from a terminal:
-
-```bash
-python liquidity_model.py
-```
-
-Replace `liquidity_model.py` with the actual name of your Python file if it differs.
-
-The script runs the base-scenario test and prints the results for each funding scenario.
-
 ## Limitations
 
 This is an educational model inspired by the LCR framework, not a complete regulatory LCR implementation.
